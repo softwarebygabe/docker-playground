@@ -1,0 +1,54 @@
+version: "3"
+services:
+  ping:
+    build:
+      context: ../goserver/
+      dockerfile: Dockerfile
+    container_name: ping
+    # On the docker network for this compose context
+    # each service gets it's own host.
+    # Port mapping is not needed.
+    # ports:
+    #   - 4000:4000
+    environment:
+      FOO: bar
+      SEND_ADDR: "http://pong:4000/ping"
+      TRIGGER: false
+    healthcheck:
+      test: ["CMD-SHELL", "curl localhost:4000/status"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+  pong:
+    build:
+      context: ../goserver/
+      dockerfile: Dockerfile
+    container_name: pong
+    # ports:
+    #   - 4000:4000
+    depends_on:
+      ping:
+        condition: service_healthy
+    environment:
+      FOO: bar
+      SEND_ADDR: "http://ping:4000/ping"
+      TRIGGER: false
+    healthcheck:
+      test: ["CMD-SHELL", "curl localhost:4000/status"]
+      interval: 2s
+      timeout: 5s
+      retries: 10
+  trigger:
+    build:
+      context: ../goserver/
+      dockerfile: Dockerfile
+    container_name: trigger
+    # ports:
+    #   - 4000:4000
+    depends_on:
+      pong:
+        condition: service_healthy
+    environment:
+      FOO: bar
+      SEND_ADDR: "http://pong:4000/ping"
+      TRIGGER: true

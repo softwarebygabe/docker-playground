@@ -1,0 +1,18 @@
+# github.com/blend/go-sdk v1.20211204.3
+## explicit; go 1.16
+github.com/blend/go-sdk/ansi
+github.com/blend/go-sdk/async
+github.com/blend/go-sdk/bufferutil
+github.com/blend/go-sdk/env
+github.com/blend/go-sdk/ex
+github.com/blend/go-sdk/logger
+github.com/blend/go-sdk/r2
+github.com/blend/go-sdk/reflectutil
+github.com/blend/go-sdk/sanitize
+github.com/blend/go-sdk/stringutil
+github.com/blend/go-sdk/timeutil
+github.com/blend/go-sdk/uuid
+github.com/blend/go-sdk/webutil
+# github.com/gorilla/mux v1.8.0
+## explicit; go 1.12
+github.com/gorilla/mux
